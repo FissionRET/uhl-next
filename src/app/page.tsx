@@ -1,7 +1,6 @@
 "use client";
 
 import Particles from "@/components/magicui/particles";
-import Navbar from "@/components/navbar";
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import Hero from "@/components/hero";
@@ -25,9 +24,7 @@ export default function Home() {
                     refresh
                 />
 
-                <main className="flex flex-col items-center justify-between p-24">
-                    <Hero/>
-                </main>
+                <Hero />
             </div>
         </>
     );

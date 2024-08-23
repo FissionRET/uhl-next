@@ -7,29 +7,34 @@ import { cn } from "@/lib/utils";
 import Navbar from "@/components/navbar";
 
 export const metadata: Metadata = {
-  title: "UHL Next",
-  description: "Next generation of UHL websites.",
+    title: "UHL Next",
+    description: "Next generation of UHL websites.",
 };
 
 export default function RootLayout({
-  children,
+    children,
 }: Readonly<{
-  children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en" suppressHydrationWarning suppressContentEditableWarning>
-      <body className={cn("min-h-dvh font-sans antialiased", GeistSans.className)}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Navbar />
+    return (
+        <html lang="en" suppressHydrationWarning suppressContentEditableWarning>
+            <body
+                className={cn(
+                    "min-h-dvh font-sans antialiased",
+                    GeistSans.className
+                )}
+            >
+                <ThemeProvider
+                    attribute="class"
+                    defaultTheme="dark"
+                    enableSystem
+                    disableTransitionOnChange
+                >
+                    <Navbar />
 
-          {children}
-        </ThemeProvider>
-      </body>
-    </html>
-  );
+                    {children}
+                </ThemeProvider>
+            </body>
+        </html>
+    );
 }
