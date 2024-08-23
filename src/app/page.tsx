@@ -4,6 +4,7 @@ import Particles from "@/components/magicui/particles";
 import Navbar from "@/components/navbar";
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
+import Hero from "@/components/hero";
 
 export default function Home() {
     const { theme } = useTheme();
@@ -24,9 +25,9 @@ export default function Home() {
                     refresh
                 />
 
-                <Navbar />
-
-                <main className="flex flex-col items-center justify-between p-24"></main>
+                <main className="flex flex-col items-center justify-between p-24">
+                    <Hero/>
+                </main>
             </div>
         </>
     );

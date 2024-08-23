@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import Navbar from "@/components/navbar";
 
 export const metadata: Metadata = {
   title: "UHL Next",
@@ -24,6 +25,8 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <Navbar />
+
           {children}
         </ThemeProvider>
       </body>
