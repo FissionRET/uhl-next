@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/toaster"
 
 import "./globals.css";
 import { cn } from "@/lib/utils";
@@ -33,6 +34,8 @@ export default function RootLayout({
                     <Navbar />
 
                     {children}
+                    
+                    <Toaster />
                 </ThemeProvider>
             </body>
         </html>
