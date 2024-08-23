@@ -59,41 +59,36 @@ export default function Login() {
 		withCredentials: true
 	}));	
 
-    function onLoginSubmit(values: z.infer<typeof loginSchema>) {
-		client.get('http://daotao.daihochalong.edu.vn/Login.aspx')
+    async function onLoginSubmit(values: z.infer<typeof loginSchema>) {		
+		const requestData = {
+			__VIEWSTATE: "",
+			__VIEWSTATEGENERATOR: "",
+			__EVENTVALIDATION: "",
+			txtusername: values.userid.toString(),
+			txtpassword: values.password.toString(),
+			btnDangnhap: "Đăng nhập"
+		}
+
+		client.post('http://daotao.daihochalong.edu.vn/Login.aspx', qs.stringify(requestData))
 		.then(response => {
-			console.log(response.data);
+			toast({
+				title: "Successfully logged in !",
+				description: `Authenticated on ${values.userid}`
+			});
+
+			return client.get('http://daotao.daihochalong.edu.vn/wfrmLichHocSinhVienTinChi.aspx');
 		})
+		.then(response => {
+			const $ = cheerio.load(response.data);
 
-		// const requestData = {
-		// 	__VIEWSTATE: "",
-		// 	__VIEWSTATEGENERATOR: "",
-		// 	__EVENTVALIDATION: "",
-		// 	txtusername: values.userid.toString(),
-		// 	txtpassword: values.password.toString(),
-		// 	btnDangnhap: "Đăng nhập"
-		// }
-
-		// client.post('http://daotao.daihochalong.edu.vn/Login.aspx', qs.stringify(requestData))
-		// .then(response => {
-		// 	toast({
-		// 		title: "Successfully logged in !",
-		// 		description: `Authenticated on ${values.userid}`
-		// 	});
-
-		// 	return client.get('http://daotao.daihochalong.edu.vn/wfrmLichHocSinhVienTinChi.aspx');
-		// })
-		// .then(response => {
-		// 	const $ = cheerio.load(response.data);
-
-		// 	toast({
-		// 		title: "Fetched data !",
-		// 		description: `Received table data for user ${$('#nav1_lblHo_ten').text()}`
-		// 	});
-		// })
-		// .catch(err => {
-		// 	console.error('Error: ', err);
-		// });       
+			toast({
+				title: "Fetched data !",
+				description: `Received table data for user ${$('#nav1_lblHo_ten').text()}`
+			});
+		})
+		.catch(err => {
+			console.error('Error: ', err);
+		});       
     }
 
     return (
