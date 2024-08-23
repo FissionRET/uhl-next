@@ -1,7 +1,6 @@
 "use client";
 
 import Particles from "@/components/magicui/particles";
-import Navbar from "@/components/navbar";
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import Hero from "@/components/hero";
