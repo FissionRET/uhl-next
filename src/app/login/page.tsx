@@ -55,9 +55,8 @@ export default function Login() {
 	
 	const cookieJar = new tough.CookieJar();
 	const client = wrapper(axios.create({
-		jar: cookieJar,
-		withCredentials: true
-	}));	
+		jar: cookieJar
+	}));
 
     async function onLoginSubmit(values: z.infer<typeof loginSchema>) {		
 		const requestData = {
@@ -69,26 +68,43 @@ export default function Login() {
 			btnDangnhap: "Đăng nhập"
 		}
 
-		client.post('http://daotao.daihochalong.edu.vn/Login.aspx', qs.stringify(requestData))
+        const proxyParams = {
+            cors: "http://daotao.daihochalong.edu.vn/Login.aspx",
+            method: "POST",
+            __VIEWSTATE: "",
+			__VIEWSTATEGENERATOR: "",
+			__EVENTVALIDATION: "",
+			txtusername: values.userid.toString(),
+			txtpassword: values.password.toString(),
+			btnDangnhap: "Đăng nhập"
+        }
+
+		client.get('https://it.uhl.edu.vn/proxy.php?cors=http://daotao.daihochalong.edu.vn/Login.aspx&method=GET')
 		.then(response => {
 			toast({
 				title: "Successfully logged in !",
 				description: `Authenticated on ${values.userid}`
 			});
 
-			return client.get('http://daotao.daihochalong.edu.vn/wfrmLichHocSinhVienTinChi.aspx');
-		})
-		.then(response => {
-			const $ = cheerio.load(response.data);
+            const $ = cheerio.load(response.data);
 
-			toast({
-				title: "Fetched data !",
-				description: `Received table data for user ${$('#nav1_lblHo_ten').text()}`
-			});
+            proxyParams.__VIEWSTATE = $('#__VIEWSTATE').val();
+            proxyParams.__VIEWSTATEGENERATOR = $('#__VIEWSTATEGENERATOR').val();
+            proxyParams.__EVENTVALIDATION = $('#__EVENTVALIDATION').val();
+
+            return client.post('https://it.uhl.edu.vn/proxy.php', JSON.stringify(proxyParams));
 		})
+        .then(response => {
+            toast({
+                title: "Successfully logged in!",
+                description: `Authenticated on ${values.userid}`
+            });
+    
+            console.log(response.data);
+        })
 		.catch(err => {
 			console.error('Error: ', err);
-		});       
+		});
     }
 
     return (
