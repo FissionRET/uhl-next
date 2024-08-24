@@ -58,16 +58,7 @@ export default function Login() {
 		jar: cookieJar
 	}));
 
-    async function onLoginSubmit(values: z.infer<typeof loginSchema>) {		
-		const requestData = {
-			__VIEWSTATE: "",
-			__VIEWSTATEGENERATOR: "",
-			__EVENTVALIDATION: "",
-			txtusername: values.userid.toString(),
-			txtpassword: values.password.toString(),
-			btnDangnhap: "Đăng nhập"
-		}
-
+    async function onLoginSubmit(values: z.infer<typeof loginSchema>) {
         const proxyParams = {
             cors: "http://daotao.daihochalong.edu.vn/Login.aspx",
             method: "POST",
@@ -81,26 +72,33 @@ export default function Login() {
 
 		client.get('https://it.uhl.edu.vn/proxy.php?cors=http://daotao.daihochalong.edu.vn/Login.aspx&method=GET')
 		.then(response => {
-			toast({
-				title: "Successfully logged in !",
-				description: `Authenticated on ${values.userid}`
-			});
-
             const $ = cheerio.load(response.data);
 
             proxyParams.__VIEWSTATE = $('#__VIEWSTATE').val();
             proxyParams.__VIEWSTATEGENERATOR = $('#__VIEWSTATEGENERATOR').val();
             proxyParams.__EVENTVALIDATION = $('#__EVENTVALIDATION').val();
 
-            return client.post('https://it.uhl.edu.vn/proxy.php', JSON.stringify(proxyParams));
+            return client.post('https://it.uhl.edu.vn/proxy.php', proxyParams, {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            });
 		})
         .then(response => {
             toast({
                 title: "Successfully logged in!",
                 description: `Authenticated on ${values.userid}`
             });
-    
+
             console.log(response.data);
+
+            return client.get('https://it.uhl.edu.vn/proxy.php?cors=http://daotao.daihochalong.edu.vn/wfrmLichHocSinhVienTinChi.aspx&method=GET')
+        })
+        .then(response => {
+            console.log(response.data);
+            const $ = cheerio.load(response.data);
+
+            console.log(`Received calendar data for user ${$('#nav1_lblHo_ten').text()}`);
         })
 		.catch(err => {
 			console.error('Error: ', err);
