@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import AnimatedGradientText from "./magicui/animated-gradient-text";
 import { Button } from "./ui/button";
 import IconCloud from "@/components/magicui/icon-cloud";
+import { useRouter } from "next/navigation";
 
 const slugs = [
     "typescript",
@@ -38,6 +39,8 @@ const slugs = [
 ];
 
 export default function Hero() {
+    const router = useRouter();
+
     return (
         <section className="relative overflow-hidden">
             <div className="container">
@@ -72,7 +75,7 @@ export default function Hero() {
                         </div>
 
                         <div className="mt-4 flex justify-center gap-2">
-                            <Button>Bắt đầu ngay</Button>
+                            <Button onClick={() => router.push('/login')}>Bắt đầu ngay</Button>
                             <Button variant={"outline"}>
                                 Tìm hiểu ngay{" "}
                                 <ExternalLink className="ml-2 h-4" />

@@ -1,0 +1,29 @@
+{
+    "scheduleWeek": "Tuần thứ: 35 (Từ ngày 26/08/2024 đến ngày 01/09/2024)",
+    "scheduleData": [
+        {
+            "time": "Sáng",
+            "days": {
+                "monday": "",
+                "tuesday": "Tiếng Anh 4Tiết học: 1-4 Mã lớp: KHMT8_NN602134.2_LT GV: Bùi Thị Bích Diệp Phòng: Nhà 20 tầng-T1402 Hình thức học:",
+                "wednesday": "",
+                "thursday": "",
+                "friday": "Chủ nghĩa xã hội khoa họcTiết học: 2-5 Mã lớp: KHMT8_CB601003.2_LT GV: Võ Thị Thu Hằng Phòng: Nhà B (9 tầng)-B602 Hình thức học:",
+                "saturday": "",
+                "sunday": ""
+            }
+        },
+        {
+            "time": "Chiều",
+            "days": {
+                "monday": "",
+                "tuesday": "Phân tích và thiết kế hệ thống thông tinTiết học: 6-9 Mã lớp: KHMT8_IT608061.2_LT GV: Phạm Thanh Huyền Phòng: Nhà 20 tầng-T1401 Hình thức học:",
+                "wednesday": "Lập trình PythonTiết học: 6-9 Mã lớp: KHMT8_IT608028.2_LT GV: Phạm Thanh Huyền Phòng: Nhà 20 tầng-T1401 Hình thức học:",
+                "thursday": "Trí tuệ nhân tạoTiết học: 6-9 Mã lớp: KHMT8_IT608059.2_LT GV: Cao Thị Bích Liên Phòng: Nhà 20 tầng-T1401 Hình thức học:",
+                "friday": "",
+                "saturday": "",
+                "sunday": ""
+            }
+        }
+    ]
+}

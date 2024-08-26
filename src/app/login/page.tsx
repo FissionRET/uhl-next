@@ -28,6 +28,7 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
+import Footer from "@/components/footer";
 
 export default function Login() {
     const { theme } = useTheme();
@@ -68,9 +69,6 @@ export default function Login() {
                     title: 'Authentication from UHL successfully !',
                     description: `Logged in as ${data.username}.`
                 });
-
-                window.localStorage.setItem('username', data.username);
-                window.localStorage.setItem('tableData', data.data);
 
                 router.push('/lich-hoc');
             } else {
@@ -161,6 +159,8 @@ export default function Login() {
                         </CardContent>
                     </Card>
                 </main>
+
+                <Footer/>
             </div>
         </>
     );

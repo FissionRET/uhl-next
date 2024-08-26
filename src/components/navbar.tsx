@@ -8,7 +8,9 @@ export default function Navbar() {
                 <nav className="hidden justify-between lg:flex">
                     <div className="flex items-center gap-6">
                         <div className="flex items-center gap-2">
-                            <BlurIn word="UHL Next" className="text-xl font-bold subpixel-antialiased"/>
+                            <a href="/uhl-next">
+                                <BlurIn word="UHL Next" className="text-xl font-bold subpixel-antialiased"/>
+                            </a>
                         </div>
 
                         <div className="flex items-center">

@@ -4,6 +4,7 @@ import Particles from "@/components/magicui/particles";
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import Hero from "@/components/hero";
+import Footer from "@/components/footer";
 
 export default function Home() {
     const { theme } = useTheme();
@@ -25,6 +26,8 @@ export default function Home() {
                 />
 
                 <Hero />
+
+                <Footer/>
             </div>
         </>
     );
