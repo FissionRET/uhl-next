@@ -5,8 +5,7 @@ import { join } from "path";
 export async function GET(req: NextRequest) {
     if (req.method === 'GET') {
         try {
-            const path = join(process.cwd() + '/public/data.json');
-            const file = await fs.readFile(path, 'utf8');
+            const file = await fs.readFile('/tmp/data.json', 'utf8');
             const data = JSON.parse(file);
 
             return NextResponse.json({

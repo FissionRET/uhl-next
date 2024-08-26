@@ -91,8 +91,7 @@ export async function POST(req: NextRequest) {
                 scheduleData.push({ time, days });
             });
 
-            const path = join(process.cwd() + '/public/data.json');
-            await fs.writeFile(path, JSON.stringify({ scheduleWeek, scheduleData }, null, 4));
+            await fs.writeFile('/tmp/data.json', JSON.stringify({ scheduleWeek, scheduleData }, null, 4));
 
             return NextResponse.json({
                 username: username,
