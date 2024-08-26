@@ -23,35 +23,6 @@ export default function Lich() {
         setColor(theme === "dark" ? "#ffffff" : "#000000");
     }, [theme]);
 
-    const tableData = window.localStorage.getItem('tableData');
-    
-    if(tableData) {
-        const $ = cheerio.load(tableData);
-        const hocthuongParagraphs = $('p.hocthuong');
-
-        let paragraph1: string = '';
-        let paragraph2: string = '';
-        let paragraph3: string = '';
-        let paragraph4: string = '';
-
-        hocthuongParagraphs.each((index, element) => {
-            switch (index) {
-                case 0:
-                    paragraph1 = $(element).text();
-                    break;
-                case 1:
-                    paragraph2 = $(element).text();
-                    break;
-                case 2:
-                    paragraph3 = $(element).text();
-                    break;
-                case 3:
-                    paragraph4 = $(element).text();
-                    break;
-            }
-        });
-    }
-
     return (
         <div className="relative min-h-screen overflow-hidden rounded-lg bg-background md:shadow-xl">
             <Particles
