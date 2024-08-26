@@ -7,6 +7,7 @@ import { z } from "zod";
 import { loginSchema } from "@/lib/schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from 'next/navigation'
 
 import { Button } from "@/components/ui/button";
 import {
@@ -26,17 +27,12 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
-import { useToast } from "@/components/ui/use-toast"
-
-import axios from "axios";
-import {wrapper} from "axios-cookiejar-support";
-import tough from "tough-cookie";
-import * as cheerio from "cheerio";
-import qs from "qs";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function Login() {
     const { theme } = useTheme();
-	const { toast } = useToast();
+    const { toast } = useToast();
+    const router = useRouter();
     const [color, setColor] = useState("#ffffff");
 
     useEffect(() => {
@@ -52,57 +48,40 @@ export default function Login() {
             password: "",
         },
     });
-	
-	const cookieJar = new tough.CookieJar();
-	const client = wrapper(axios.create({
-		jar: cookieJar
-	}));
-
+    
     async function onLoginSubmit(values: z.infer<typeof loginSchema>) {
-        const proxyParams = {
-            cors: "http://daotao.daihochalong.edu.vn/Login.aspx",
-            method: "POST",
-            __VIEWSTATE: "",
-			__VIEWSTATEGENERATOR: "",
-			__EVENTVALIDATION: "",
-			txtusername: values.userid.toString(),
-			txtpassword: values.password.toString(),
-			btnDangnhap: "Đăng nhập"
-        }
-
-		client.get('https://it.uhl.edu.vn/proxy.php?cors=http://daotao.daihochalong.edu.vn/Login.aspx&method=GET')
-		.then(response => {
-            const $ = cheerio.load(response.data);
-
-            proxyParams.__VIEWSTATE = $('#__VIEWSTATE').val();
-            proxyParams.__VIEWSTATEGENERATOR = $('#__VIEWSTATEGENERATOR').val();
-            proxyParams.__EVENTVALIDATION = $('#__EVENTVALIDATION').val();
-
-            return client.post('https://it.uhl.edu.vn/proxy.php', proxyParams, {
+        try {
+            const response = await fetch("/uhl-next/api/login", {
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                }
-            });
-		})
-        .then(response => {
-            toast({
-                title: "Successfully logged in!",
-                description: `Authenticated on ${values.userid}`
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    userid: values.userid.toString(),
+                    password: values.password.toString(),
+                }),
             });
 
-            console.log(response.data);
+            if (response.ok) {
+                const data = await response.json();
+                toast({
+                    title: 'Authentication from UHL successfully !',
+                    description: `Logged in as ${data.username}.`
+                });
 
-            return client.get('https://it.uhl.edu.vn/proxy.php?cors=http://daotao.daihochalong.edu.vn/wfrmLichHocSinhVienTinChi.aspx&method=GET')
-        })
-        .then(response => {
-            console.log(response.data);
-            const $ = cheerio.load(response.data);
+                window.localStorage.setItem('username', data.username);
+                window.localStorage.setItem('tableData', data.data);
 
-            console.log(`Received calendar data for user ${$('#nav1_lblHo_ten').text()}`);
-        })
-		.catch(err => {
-			console.error('Error: ', err);
-		});
+                router.push('/lich-hoc');
+            } else {
+                toast({
+                    title: 'Authentication failed !',
+                    description: 'Something went wrong.'
+                });
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        }
     }
 
     return (
@@ -160,13 +139,11 @@ export default function Login() {
                                         name="password"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>
-                                                    Mật khẩu
-                                                </FormLabel>
+                                                <FormLabel>Mật khẩu</FormLabel>
                                                 <FormControl>
                                                     <Input
                                                         placeholder="..."
-														type="password"
+                                                        type="password"
                                                         {...field}
                                                     />
                                                 </FormControl>
