@@ -1,3 +1,5 @@
+export const dynamic = 'force-static'
+
 import { NextRequest, NextResponse } from 'next/server';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
