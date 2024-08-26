@@ -7,8 +7,6 @@ import qs from "qs";
 import { promises as fs } from 'fs';
 import { join } from "path";
 
-export const runtime = "edge";
-
 interface RequestParams {
     txtusername: string;
     txtpassword: string;

@@ -48,7 +48,7 @@ export default function Lich() {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await fetch("/api/get-data");
+                const response = await fetch("/api/api/get-data");
                 const data = await response.json();
 
                 if (Array.isArray(data.data)) {

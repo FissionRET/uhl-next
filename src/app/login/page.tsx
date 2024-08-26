@@ -52,7 +52,7 @@ export default function Login() {
     
     async function onLoginSubmit(values: z.infer<typeof loginSchema>) {
         try {
-            const response = await fetch("/api/login", {
+            const response = await fetch("/api/api/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
