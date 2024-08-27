@@ -94,7 +94,7 @@ export default function Login() {
                 />
 
                 <main className="relative flex flex-col items-center justify-between">
-                    <Card className="w-1/4 md:w-1/3">
+                    <Card className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-4">
                         <CardHeader>
                             <CardTitle>Đăng nhập</CardTitle>
                             <CardDescription>
@@ -108,7 +108,7 @@ export default function Login() {
                                     onSubmit={loginForm.handleSubmit(
                                         onLoginSubmit
                                     )}
-                                    className="space-y-8"
+                                    className="space-y-6"
                                 >
                                     <FormField
                                         control={loginForm.control}
@@ -153,7 +153,7 @@ export default function Login() {
                                         )}
                                     />
 
-                                    <Button type="submit">Đăng nhập</Button>
+                                    <Button type="submit" className="w-full">Đăng nhập</Button>
                                 </form>
                             </Form>
                         </CardContent>

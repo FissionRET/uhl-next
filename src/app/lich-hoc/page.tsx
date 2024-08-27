@@ -129,7 +129,7 @@ export default function Lich() {
             />
 
             <main className="relative flex flex-col items-center justify-between">
-                <Table className="mx-auto w-4/5 border">
+                <Table className="w-full md:w-4/5 border mx-auto">
                     <TableCaption>{scheduleWeek}</TableCaption>
                     <TableHeader>
                         <TableRow>
