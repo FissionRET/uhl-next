@@ -19,6 +19,7 @@
     "@types/cheerio": "^0.22.35",
     "@types/qs": "^6.9.15",
     "@types/tough-cookie": "^4.0.5",
+    "@vercel/speed-insights": "^1.0.12",
     "axios": "^1.7.5",
     "axios-cookiejar-support": "^5.0.2",
     "cheerio": "^1.0.0",
